@@ -15,7 +15,7 @@ cv2.createTrackbar("Val Min","Trackbars",90,255,empty)
 cv2.createTrackbar("Val Max","Trackbars",255,255,empty)
 
 while True:
-	img = cv2.imread("resources/Imagen00012.bmp")
+	img = cv2.imread("resources/Love Live 1.png")
 	imgResize = cv2.resize(img,(1366,720))
 	imgHSV = cv2.cvtColor(imgResize,cv2.COLOR_BGR2HSV)
 	h_min = cv2.getTrackbarPos("Hue Min","Trackbars")
