@@ -1,4 +1,4 @@
-# import the opencv library
+# import the opencv librarysadasdasd
 import cv2
 faceCascade = cv2.CascadeClassifier("resources/haarcascade_frontalface_default.xml")
   
