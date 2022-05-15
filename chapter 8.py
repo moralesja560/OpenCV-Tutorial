@@ -20,7 +20,13 @@ def getContours(img):
             #approximate the corners
             peri = cv2.arcLength(cnt,True)
             approx = cv2.approxPolyDP(cnt,0.02*peri,True)
+            #len is for the number of corners of the shape and the 2 lines below are to test which results are which areas
             print (len(approx))
+            #if len(approx) == 13 or len(approx) == 10  or len(approx) == 8 :
+            #    cv2.drawContours(imgContour,cnt,-1,(255,0,0),3)
+            objCor = len(approx)
+            x, y, w, h = cv2.boundingRect(approx)
+            cv2.rectangle(imgContour,(x,y),(x+w,y+h),(0,255,0),2)
 
 
 
