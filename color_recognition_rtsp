@@ -18,7 +18,7 @@ cv2.createTrackbar("Val Max","Trackbars",255,255,empty)
 
 RTSP_URL = 'rtsp://root:MubMex30..@10.65.68.48/axis-media/media.amp'
 #RTSP_URL = 'rtsp://user:user@10.65.96.119:8554/streaming/channels/0701'
-#RTSP_URL ='rtsp://admin:ctrl_es1@10.65.68.125:8554/streaming/channels/0101'
+#RTSP_URL ='rtsp://admin:ctrl_es1@10.65.68.125:8554/streaming/channels/0101'##
 
 
 os.environ['OPENCV_FFMPEG_CAPTURE_OPTIONS'] = 'rtsp_transport;udp'
