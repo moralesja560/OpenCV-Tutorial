@@ -1,7 +1,13 @@
 # import the opencv librarysadasdasd
+from fileinput import filename
 import cv2
-faceCascade = cv2.CascadeClassifier("resources/haarcascade_frontalface_default.xml")
-  
+import os
+
+
+#resources
+file_name = os.path.join(os.path.dirname(__file__), 'resources/haarcascade_frontalface_default.xml')
+
+faceCascade = cv2.CascadeClassifier(file_name)
 # define a video capture object
 vid = cv2.VideoCapture(0)
   

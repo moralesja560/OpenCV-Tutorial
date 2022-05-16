@@ -2,6 +2,11 @@ import cv2
 from cv2 import COLOR_BGR2GRAY
 from cv2 import Canny
 import numpy as np
+import os
+
+file_name = os.path.join(os.path.dirname(__file__), 'resources/circles.jpg')
+assert os.path.exists(file_name)
+
 
 def showInMovedWindow(winname, img, x, y):
     cv2.namedWindow(winname)        # Create a named window
@@ -31,8 +36,7 @@ def getContours(img):
 
 
 
-path = 'resources/circles.jpg'
-img = cv2.imread(path)
+img = cv2.imread(file_name)
 imgContour = img.copy()
 
 #convert into grayscale
