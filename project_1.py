@@ -48,5 +48,6 @@ while True:
     img_Result = img.copy()
     findColor(img,myColors)
     cv2.imshow('Contours', img_Result)
+	
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break

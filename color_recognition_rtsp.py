@@ -44,6 +44,7 @@ while True:
 	imgResult = cv2.bitwise_and(frame,frame, mask=mask)
 	cv2.imshow('RTSP streams', mask)
 	cv2.imshow('RTSP stream2', imgResult)
+	cv2.imshow('RTSP stream2', frame)
 	cv2.waitKey(1)
 
 
