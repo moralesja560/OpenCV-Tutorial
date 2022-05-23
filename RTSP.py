@@ -2,7 +2,7 @@ import cv2
 from cv2 import imshow
 import os
 
-RTSP_URL = 'rtsp://root:MubMex30..@10.65.68.48/axis-media/media.amp'
+RTSP_URL = 'rtsp://root:MubMex30..@10.65.68.20/axis-media/media.amp'
  
 os.environ['OPENCV_FFMPEG_CAPTURE_OPTIONS'] = 'rtsp_transport;udp'
  
