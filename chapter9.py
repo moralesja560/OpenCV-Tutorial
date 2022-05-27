@@ -5,15 +5,15 @@ import os
 face_cascade_file = os.path.join(os.path.dirname(__file__), 'resources/haarcascade_frontalface_default.xml')
 family_file   = os.path.join(os.path.dirname(__file__), 'resources/family.jpg')
 
+def showInMovedWindow(winname, img, x, y):
+    cv2.namedWindow(winname)        # Create a named window
+    cv2.moveWindow(winname, x, y)   # Move it to (x,y)
+    cv2.imshow(winname,img)
 
 
 
 faceCascade = cv2.CascadeClassifier(face_cascade_file)
 
-def showInMovedWindow(winname, img, x, y):
-    cv2.namedWindow(winname)        # Create a named window
-    cv2.moveWindow(winname, x, y)   # Move it to (x,y)
-    cv2.imshow(winname,img)
 
 img = cv2.imread(family_file)
 imGrayscale = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
