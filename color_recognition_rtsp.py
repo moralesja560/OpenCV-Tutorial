@@ -10,13 +10,13 @@ cv2.namedWindow("Trackbars")
 
 cv2.resizeWindow("Trackbars",(640,240))
 cv2.createTrackbar("Hue Min","Trackbars",0,179,empty)
-cv2.createTrackbar("Hue Max","Trackbars",50,179,empty)
-cv2.createTrackbar("Sat Min","Trackbars",0,255,empty)
-cv2.createTrackbar("Sat Max","Trackbars",51,255,empty)
-cv2.createTrackbar("Val Min","Trackbars",90,255,empty)
+cv2.createTrackbar("Hue Max","Trackbars",179,179,empty)
+cv2.createTrackbar("Sat Min","Trackbars",2,255,empty)
+cv2.createTrackbar("Sat Max","Trackbars",94,255,empty)
+cv2.createTrackbar("Val Min","Trackbars",241,255,empty)
 cv2.createTrackbar("Val Max","Trackbars",255,255,empty)
 
-RTSP_URL = 'rtsp://root:MubMex30..@10.65.68.48/axis-media/media.amp'
+RTSP_URL = 'rtsp://user:user@10.65.96.76:8554/streaming/channels/1001'
 #RTSP_URL = 'rtsp://user:user@10.65.96.119:8554/streaming/channels/0701'
 #RTSP_URL ='rtsp://admin:ctrl_es1@10.65.68.125:8554/streaming/channels/0101'##
 
@@ -38,15 +38,15 @@ while True:
 	s_max = cv2.getTrackbarPos("Sat Max","Trackbars")
 	val_min = cv2.getTrackbarPos("Val Min","Trackbars")
 	val_max = cv2.getTrackbarPos("Val Max","Trackbars")
+	imgHSV = cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
 	lower = np.array([h_min,s_min,val_min])
 	upper = np.array([h_max,s_max,val_max])
-	mask = cv2.inRange(frame,lower,upper)
+	mask = cv2.inRange(imgHSV,lower,upper)
 	imgResult = cv2.bitwise_and(frame,frame, mask=mask)
-	cv2.imshow('RTSP streams', mask)
-	cv2.imshow('RTSP stream2', imgResult)
-	cv2.imshow('RTSP stream2', frame)
-	cv2.waitKey(1)
-
-
-cap.release()
-cv2.destroyAllWindows()
+	cv2.imshow('mask', mask)
+	cv2.imshow('imgResult', imgResult)
+	cv2.imshow('orig frame', frame)
+	if cv2.waitKey(1) & 0xFF == ord('q'):
+		cap.release()
+		cv2.destroyAllWindows()
+		break
