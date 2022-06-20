@@ -43,5 +43,5 @@ def BarcodeReader(image):
  
 if __name__ == "__main__":
   # Take the image from user
-    image=r'C:\Users\moralesja.group\Documents\Python Scripts\OpenCV\OpenCV-Tutorial\resources\barcode.jpg'
+    image=r'C:\Users\SKU 80093\Documents\Python_Scripts\OpenCV-Tutorial\resources\barcode.jpg'
     BarcodeReader(image)
