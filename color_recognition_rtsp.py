@@ -10,20 +10,21 @@ cv2.namedWindow("Trackbars")
 
 cv2.resizeWindow("Trackbars",(640,240))
 cv2.createTrackbar("Hue Min","Trackbars",0,179,empty)
-cv2.createTrackbar("Hue Max","Trackbars",179,179,empty)
-cv2.createTrackbar("Sat Min","Trackbars",2,255,empty)
-cv2.createTrackbar("Sat Max","Trackbars",94,255,empty)
-cv2.createTrackbar("Val Min","Trackbars",241,255,empty)
+cv2.createTrackbar("Hue Max","Trackbars",134,179,empty)
+cv2.createTrackbar("Sat Min","Trackbars",0,255,empty)
+cv2.createTrackbar("Sat Max","Trackbars",25,255,empty)
+cv2.createTrackbar("Val Min","Trackbars",168,255,empty)
 cv2.createTrackbar("Val Max","Trackbars",255,255,empty)
 
-RTSP_URL = 'rtsp://user:user@10.65.96.76:8554/streaming/channels/1001'
+#RTSP_URL = 'rtsp://user:user@10.65.96.76:8554/streaming/channels/1401'
 #RTSP_URL = 'rtsp://user:user@10.65.96.119:8554/streaming/channels/0701'
-#RTSP_URL ='rtsp://admin:ctrl_es1@10.65.68.125:8554/streaming/channels/0101'##
+RTSP_URL ='rtsp://admin:ctrl_es1@10.65.68.125:8554/streaming/channels/0601'
 
 
 os.environ['OPENCV_FFMPEG_CAPTURE_OPTIONS'] = 'rtsp_transport;udp'
- 
+
 cap = cv2.VideoCapture(RTSP_URL, cv2.CAP_FFMPEG)
+#cap.set(cv2.CAP_PROP_BUFFERSIZE, 3)
 
 if not cap.isOpened():
     print('Cannot open RTSP stream')
@@ -43,9 +44,9 @@ while True:
 	upper = np.array([h_max,s_max,val_max])
 	mask = cv2.inRange(imgHSV,lower,upper)
 	imgResult = cv2.bitwise_and(frame,frame, mask=mask)
-	cv2.imshow('mask', mask)
+	#cv2.imshow('mask', mask)
 	cv2.imshow('imgResult', imgResult)
-	cv2.imshow('orig frame', frame)
+	#cv2.imshow('orig frame', frame)
 	if cv2.waitKey(1) & 0xFF == ord('q'):
 		cap.release()
 		cv2.destroyAllWindows()

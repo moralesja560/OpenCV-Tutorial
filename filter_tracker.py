@@ -14,13 +14,13 @@ Grupo_WT = os.getenv('WATERTANK')
 AngelI = os.getenv('AngelI')
 token_bot = os.getenv('api_token')
 
-RTSP_URL = 'rtsp://user:user@10.65.96.76:8554/streaming/channels/1001'
+RTSP_URL = 'rtsp://user:user@10.65.96.76:8554/streaming/channels/1401'
 os.environ['OPENCV_FFMPEG_CAPTURE_OPTIONS'] = 'rtsp_transport;udp'
 cap = cv2.VideoCapture(RTSP_URL, cv2.CAP_FFMPEG)
 #cap = cv2.VideoCapture(0,cv2.CAP_DSHOW)
 
 #first min values then max values
-myColors = ([[0,8,241,179,94,255]])
+myColors = ([[0,0,168,137,25,255]])
 #please make the first numbers of each color different.
 #hue min , sat min, value min  hue max, sat max, value max.
 
@@ -48,7 +48,8 @@ def getContours(img):
 	x,y,w,h = 0,0,0,0
 	for cnt in contours:
 		area = cv2.contourArea(cnt)
-		if area>250:
+		print(area)
+		if area>40000:
 			cv2.drawContours(img_Result, cnt, -1, (255, 0, 0), 3)
 			peri = cv2.arcLength(cnt,True)
 			approx = cv2.approxPolyDP(cnt,0.02*peri,True)
@@ -77,9 +78,10 @@ def findColor(img,myColors):
 
 
 while True:
-	success, img = cap.read()
-	img_Result = img.copy()
-	findColor(img,myColors)
+	success, frame1 = cap.read()
+	frame = frame1[630:730,700:1300]
+	img_Result = frame.copy()
+	findColor(frame,myColors)
 	cv2.imshow('Contours', img_Result)
 	if cv2.waitKey(1) & 0xFF == ord('q'):
 		break
