@@ -15,7 +15,7 @@ if not cap.isOpened():
 while True:
     _, frame = cap.read()
     cv2.imshow('RTSP stream', frame)
- 
+	
     if cv2.waitKey(1) == 27: #escape key
         break
  
