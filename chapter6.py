@@ -1,6 +1,13 @@
 #color detection
 import cv2
 import numpy as np
+import sys,os
+
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(base_path, relative_path)
+
 def empty(a):
 	pass
 
@@ -15,7 +22,7 @@ cv2.createTrackbar("Val Min","Trackbars",90,255,empty)
 cv2.createTrackbar("Val Max","Trackbars",255,255,empty)
 
 while True:
-	img = cv2.imread("resources/Love Live 1.png")
+	img = cv2.imread(resource_path('resources/itw3.bmp'))
 	imgResize = cv2.resize(img,(1366,720))
 	imgHSV = cv2.cvtColor(imgResize,cv2.COLOR_BGR2HSV)
 	h_min = cv2.getTrackbarPos("Hue Min","Trackbars")
@@ -26,7 +33,7 @@ while True:
 	val_max = cv2.getTrackbarPos("Val Max","Trackbars")
 	lower = np.array([h_min,s_min,val_min])
 	upper = np.array([h_max,s_max,val_max])
-	mask = cv2.inRange(imgResize,lower,upper)
+	mask = cv2.inRange(imgHSV,lower,upper)
 	imgResult = cv2.bitwise_and(imgResize,imgResize,mask=mask)
 
 	cv2.imshow("Original", imgResize)
