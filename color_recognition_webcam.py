@@ -29,6 +29,7 @@ if not cap.isOpened():
 while True:
 	_, frame = cap.read()
 	#img = cv2.imshow('RTSP stream', frame)
+	imgHSV = cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
 	h_min = cv2.getTrackbarPos("Hue Min","Trackbars")
 	s_min = cv2.getTrackbarPos("Sat Min","Trackbars")
 	val_min = cv2.getTrackbarPos("Val Min","Trackbars")
@@ -37,8 +38,8 @@ while True:
 	val_max = cv2.getTrackbarPos("Val Max","Trackbars")
 	lower = np.array([h_min,s_min,val_min])
 	upper = np.array([h_max,s_max,val_max])
-	mask = cv2.inRange(frame,lower,upper)
-	imgResult = cv2.bitwise_and(frame,frame, mask=mask)
+	mask = cv2.inRange(imgHSV,lower,upper)
+	imgResult = cv2.bitwise_and(imgHSV,imgHSV, mask=mask)
 	cv2.imshow('RTSP streams', mask)
 	cv2.imshow('RTSP stream2', imgResult)
 	if cv2.waitKey(1) & 0xFF == ord('q'):
