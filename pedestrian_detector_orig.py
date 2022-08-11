@@ -27,11 +27,11 @@ for imagePath in paths.list_images(args["images"]):
 	orig = image.copy()
 
 	#try to detect people on the image
-	(rects,weights) = hog.detectMultiScale(image,winStride=(4,4),padding=(8,8), scale=1.05)
+	(rects,weights) = hog.detectMultiScale(image,winStride=(1,1),padding=(4,4), scale=1.15)
 
 	#apply non-maxima suppression to the bounding boxes using a fairly large overlap threshold
 	rects = np.array([[x,y,x+w,y+h] for (x,y,w,h) in rects])
-	pick = non_max_suppression(rects, probs=None, overlapThresh=0.65)
+	pick = non_max_suppression(rects, probs=None, overlapThresh=0.95)
 
 	#draw the final bounding boxes
 	for (xA,yA,xB,yB) in pick:

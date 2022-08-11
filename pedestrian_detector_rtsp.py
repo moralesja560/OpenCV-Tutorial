@@ -18,13 +18,15 @@ frameWidth = 640
 frameHeight = 480
 
 #cap = cv2.VideoCapture(0,cv2.CAP_DSHOW)
-RTSP_URL ='rtsp://admin:ctrl_es1@10.65.68.125:8554/streaming/channels/0601'
+#RTSP_URL ='rtsp://admin:ctrl_es1@10.65.68.125:8554/streaming/channels/0601'
+RTSP_URL = 'rtsp://user:user@10.65.96.119:8554/streaming/channels/1601'
  
 os.environ['OPENCV_FFMPEG_CAPTURE_OPTIONS'] = 'rtsp_transport;udp'
 cap = cv2.VideoCapture(RTSP_URL, cv2.CAP_FFMPEG)
 cap.set(3,frameWidth)
 cap.set(4,frameHeight)
 cap.set(10,150)
+cap.set(cv2.CAP_PROP_BUFFERSIZE, 3)
 
 #initialize the HOG descriptor / person detector
 hog = cv2.HOGDescriptor()
@@ -41,11 +43,18 @@ while True:
 	orig = image.copy()
 
 	#try to detect people on the image
-	(rects,weights) = hog.detectMultiScale(image,winStride=(4,4),padding=(8,8), scale=1.10)
+	(rects,weights) = hog.detectMultiScale(image,winStride=(4,4),padding=(8,8), scale=1.5)
+
+	#WinStride parameter: Imagine a field (a picture) that has a width of 1920 px and a height of 1080px. 
+		#we scan that field using a window that is 1 px wide and 1 px high. That leaves us with 2.1 million images to be scanned.
+		# When using pedestrian detection, we must adjust this parameters to avoid wasteful image processing
+	
+
+
 
 	#apply non-maxima suppression to the bounding boxes using a fairly large overlap threshold
 	rects = np.array([[x,y,x+w,y+h] for (x,y,w,h) in rects])
-	pick = non_max_suppression(rects, probs=None, overlapThresh=0.65)
+	pick = non_max_suppression(rects, probs=None, overlapThresh=0.6)
 
 	#draw the final bounding boxes
 	for (xA,yA,xB,yB) in pick:
@@ -56,7 +65,7 @@ while True:
 	#print("[INFO] {}: {} original boxes, {} after suppression".format(filename, len(rects), len(pick)))
 
 	#show the output images
-	cv2.imshow("Before NMS",orig)
+	#cv2.imshow("Before NMS",orig)
 	cv2.imshow("AfterNMS",image)
 	if cv2.waitKey(1) & 0xFF == ord('q'):
 		break
