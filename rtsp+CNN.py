@@ -24,7 +24,7 @@ def load_and_prep_image(filename,img_shape=224):
 
 
 #keras model load
-new_model = tf.keras.models.load_model(r'C:\Users\moralesja.group\Documents\SC_Repo\NeuralNetwork\CNN\CNN_savedmodel6')
+new_model = tf.keras.models.load_model(r'C:\Users\moralesja.group\Documents\SC_Repo\NeuralNetwork\CNN\dogcatmodel_2')
 font = cv2.FONT_HERSHEY_SIMPLEX
   
 while True:
@@ -35,11 +35,11 @@ while True:
 	final_data = new_model.predict(np.expand_dims(image, axis=0))
 	final_data = float(final_data)
 	if final_data <0.40:
-		print(f"It's a pizza {final_data}")
-		cv2.putText(img, 'PIZZA', (10,450), font, 3, (0, 255, 0), 2, cv2.LINE_AA)
+		print(f"It's a CAT {final_data}")
+		cv2.putText(img, 'CAT', (10,450), font, 3, (0, 255, 0), 2, cv2.LINE_AA)
 	elif final_data > 0.70 and final_data < 0.95:
-		print(f"It's a steak {final_data}")
-		cv2.putText(img, 'STEAK', (10,450), font, 3, (255, 0, 0), 2, cv2.LINE_AA)
+		print(f"It's a DOG {final_data}")
+		cv2.putText(img, 'DOG', (10,450), font, 3, (255, 0, 0), 2, cv2.LINE_AA)
 	cv2.imshow("Data",img)
 	if cv2.waitKey(1) & 0xFF == ord('q'):
 		break
